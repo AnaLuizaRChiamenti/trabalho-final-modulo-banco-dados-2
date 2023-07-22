@@ -3,17 +3,14 @@ import React from "react";
 const Login: React.FC = () => {
   return (
     <React.Fragment>
-      <main className="w-[100vw] h-[100vh] bg-[#F6F2EB] ">
-        <div className="bg-[url('./assets/images/fundo.png')]"></div>
+      <main className="w-[100vw] h-[100vh] bg-[url('../public/assets/images/fundo.png')] ">
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-          <div className="w-[600px] h-[600px] bg-white mx-auto max-w-md py-8 px-10 shadow rounded-3xl">
+          <div className="w-[600px] h-[600px] bg-white mx-auto max-w-md py-8 px-10 shadow-2xl rounded-3xl 	">
+            <div className=" w-100% h-16 flex justify-center">
+              <img className="h-13 " src="./assets/images/iconeFlor.png" alt="Your Company" />
+            </div>
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-              <img
-                className="mx-auto h-10 w-auto"
-                src="./assets/images/sakura.png"
-                alt="Your Company"
-              />
-              <h2 className="mt-10 text-center text-3xl leading-9 tracking-tight text-gray-900 font-mplus">
+              <h2 className="mt-5 text-center text-3xl leading-9 tracking-tight text-gray-900 font-mplus">
                 Faça seu login
               </h2>
             </div>
