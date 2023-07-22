@@ -74,7 +74,10 @@ const Login: React.FC = () => {
 
               <p className="mt-10 text-center text-sm text-gray-500 font-mplus">
                 Não tem uma conta?{" "}
-                <a href="/#" className="font-mplus leading-6 text-pink-500 hover:text-[#ff9db0]">
+                <a
+                  href="/cadastro"
+                  className="font-mplus leading-6 text-pink-500 hover:text-[#ff9db0]"
+                >
                   Cadastre-se!
                 </a>
               </p>
