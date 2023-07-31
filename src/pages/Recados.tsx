@@ -4,13 +4,13 @@ const Recados: React.FC = () => {
   return (
     <React.Fragment>
       <main className="w-[100vw] h-[100vh] bg-[url('../public/assets/images/fundo.png')] flex">
-        <div className="h-[100%] flex items-center justify-center ml-16">
-          <div className="w-80 h-[90%] rounded-3xl flex flex-col bg-[#FCA5A1] shadow-md">
-            <div className="w-[100%] h-[100%] flex flex-col justify-center items-center">
+        <section className="h-[100%] w-[25%] flex items-center justify-center max-[376px]:h-[15%] max-[415px]:w-[100%] // max-[415px]:h-[10%]">
+          <div className="w-[80%] h-[90%] rounded-3xl flex flex-col bg-[#fca6a1] shadow-md max-[376px]:flex-row  ">
+            <div className="w-[100%] h-[100%] flex flex-col justify-center items-center max-[376px]:flex-row max-[376px]:w-0 max-[376px]:text-transparent ">
               <img src="./assets/images/iconePessoa.png" alt="" className="h-30" />
               Email
             </div>
-            <div className="w-[100%] h-[100%] flex flex-col justify-center items-center">
+            <div className="w-[100%] h-[100%] flex flex-col justify-center items-center max-[376px]:flex-row max-[376px]:w-[68%] max-[376px]:justify-between">
               <button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -19,6 +19,7 @@ const Recados: React.FC = () => {
                   width="55"
                   height="96"
                   viewBox="0,0,256,256"
+                  className="max-[376px]:w-[45px] max-[376px]:ml-5"
                 >
                   <g
                     fill="none"
@@ -80,6 +81,7 @@ const Recados: React.FC = () => {
                   width="80"
                   height="96"
                   viewBox="0,0,256,256"
+                  className=" max-[376px]:h-[55px]"
                 >
                   <g
                     fill="none"
@@ -144,19 +146,19 @@ const Recados: React.FC = () => {
                 </svg>
               </button>
             </div>
-            <div className="w-[100%] h-[15%] flex items-start">
+            <div className="w-[100%] h-[15%] flex items-start  max-[376px]:justify-end max-[376px]:mr-4 max-[376px]:mt-2 max-[376px]:w-[32%]">
               <button>
                 <img
                   src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACsklEQVR4nO2ZTWgTQRTHF3rz4kHx4EXB2syHTTTSogelTchMoi3SYI4Be6gHPWjZaS1CEfHiQbRQrV7syYvoSSXX0quHikepgSSb+AUiVm2pVF6ZTUm2ZYuHvAndsn94DOzCzP83b3Z29q1lhQoVKtSO1kBX137JyIxgxBGMrklOodVw+2GkIjh5co7SQ8bMCx7pl4x8wTC9LQynSynGEqZm3qh52czIt1Q0egAVQDDyuDkIKets5HJWB0bfup8UpWcFJyUPxCMLU3qNNtMc6bcMKE1psjkGKaF27n1gsWZ+q3I5q0NwsrqRgWXUzr1rdOs9cMaOQlUVwLH/QFVBKzF7ZxAGTxyDqXFZgqo6bhzANe+oX60a9w97FSrjvWYBquqNGfOqHo5aMAuAsGy8UXt7BV5OZd22cb14Y685AOQZv5Q86Y5x8VQUFudG6tfLYwcDByC9EEECWJwbcY17ISbzfTIwAFBV8HH+MuROxxrjZTj9mea8JzAA4AMhGfnREkS7AQAb4n8Aett78SALz+8PocbMzYwec9lzkPwuCYmjA3h3D+PBaDEE8FtCz+5egKe3B1Dj3vUUpDldMb6EAv8Qw042vzteZIwW/XaAwBwlBGOdgkVs3QbyMLedAnOcbhdAze+DBuk4fU1w+kG3JgHALzAAdJnDr9wRGADZpm10dqOsolvsDPgWtjDNr5VtOB/j7hgaAjcDntKipPSMCYD3heFGlvOJOHYGNhd3dR1TZwLD+L+K7ZrPJ+INgOmJNHIGIpHDunbfjvN+ticKXxeu4gJo6VkXnHw2aX6otxvevR72Zugv1G7tsbCUJGSf4PSh+48A6RdTppu5y2d6Ir155usxb5kUVEY7wbGXzLwD7BVwRmNGAVyIsjoCjnoFjvqNYtxx+ynAJ5sZNx8q1C7TOohYpDUlSeXRAAAAAElFTkSuQmCC"
-                  className="w-9 h-9 ml-5"
+                  className="w-9 h-9 ml-5 max-[376px]:h-[33px] max-[376px]:w-[30px] "
                 ></img>
               </button>
             </div>
           </div>
-        </div>
+        </section>
         {/* ////////////////////////////////////////////////////// */}
-        <div className="w-[100%] h-[100%] flex flex-col justify-between items-center">
-          <div className="w-[40%] h-[15%] flex pt-20 gap-5">
+        <section className="w-[75%] h-[100%] flex flex-col justify-between items-center">
+          <div className="w-[60%] h-[15%] flex pt-20 gap-5">
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -214,7 +216,7 @@ const Recados: React.FC = () => {
               className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-400 focus:ring-2 focus:ring-inset focus:ring-pink-600  sm:leading-6 focus: outline-none p-2 bg-[#FCA5A1] indent-3 text-lg "
             />
           </div>
-          <div className="w-[90%] h-[70%] mb-12 bg-[#fca6a1be] flex flex-wrap rounded-2xl pl-10 pt-10 shadow-md">
+          <div className="w-[90%] h-[70%] mb-12 bg-[#fca6a18a] flex flex-wrap rounded-2xl pl-10 pt-10 shadow-md">
             <div className="w-[300px] h-[190px] bg-[#A2C3E0] rounded-3xl flex pl-10 text-lg m-5 shadow-md">
               <div className="w-[90%] h-[100%] flex justify-around flex-col ">
                 <h1 className="text-3xl">Titulo</h1>
@@ -242,7 +244,7 @@ const Recados: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </main>
     </React.Fragment>
   );
