@@ -124,6 +124,8 @@ const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
                 id="email"
                 name="email"
                 type="email"
+                value={email}
+                onChange={(ev) => setEmail(ev.target.value)}
                 autoComplete="email"
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-pink-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-400 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6 focus: outline-none p-2"
@@ -145,29 +147,37 @@ const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
                 id="password"
                 name="password"
                 type="password"
+                value={password}
+                onChange={(ev) => setPassword(ev.target.value)}
                 autoComplete="current-password"
                 required
                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-400 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6 focus:border-0 focus: outline-none p-2"
               />
             </div>
-            <div className="flex items-center justify-between mt-6">
-              <label
-                htmlFor="password"
-                className="block text-sm leading-6 text-gray-900 font-mplus"
-              >
-                Repetir a senha
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-400 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6 focus:border-0 focus: outline-none p-2"
-              />
-            </div>
+            {mode === "Cadastro" && (
+              <>
+                <div className="flex items-center justify-between mt-6">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm leading-6 text-gray-900 font-mplus"
+                  >
+                    Repetir a senha
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    onChange={(ev) => setRepassword(ev.target.value)}
+                    value={repassword}
+                    autoComplete="current-password"
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-400 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6 focus:border-0 focus: outline-none p-2"
+                  />
+                </div>
+              </>
+            )}
           </div>
 
           <div className="w-full flex justify-center pt-2">
@@ -175,16 +185,21 @@ const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
               type="submit"
               className="text-white w-80 h-10 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 font-mplus"
             >
-              Cadastrar
+              {textButton}
             </button>
           </div>
         </form>
 
-        <p className="mt-7 text-center text-sm text-gray-500 font-mplus">
-          Ja tem uma conta?{" "}
-          <a href="/" className="font-mplus leading-6 text-pink-500 hover:text-[#ff9db0]">
-            Faça o login!
-          </a>
+        <p className=" mt-10 text-center text-sm text-gray-500 font-mplus">
+          {mode === "Login" ? (
+            <a href="/Cadastro" className=" font-mplus text-pink-500 hover:text-[#ff9db0] ">
+              Não tem uma conta? Cadastre-se!
+            </a>
+          ) : (
+            <a href="/" className="font-mplus text-pink-500 hover:text-[#ff9db0] ">
+              Já tem uma conta? Entre agora mesmo!
+            </a>
+          )}
         </p>
       </div>
     </>
