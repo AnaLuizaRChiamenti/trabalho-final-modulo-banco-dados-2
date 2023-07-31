@@ -9,8 +9,8 @@ import {
 } from "../store/modules/UserLogged";
 
 interface FormCompProps {
-  textButton: "LOGAR" | "CADASTRAR";
-  mode: "login" | "signUp";
+  textButton: "Logar" | "Cadastrar";
+  mode: "Login" | "Cadastro";
 }
 
 const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
@@ -32,7 +32,7 @@ const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
   const [alertErrorExist, setAlertErrorExist] = useState(false);
 
   useEffect(() => {
-    if (mode === "signUp") {
+    if (mode === "Cadastro") {
       const emailValid =
         email.includes(".com") || (email.includes(".com.br") && email.includes("@"));
 
@@ -54,16 +54,16 @@ const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
     }
   }, [email, password, repassword, mode]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (userlogged.email) {
-      navigate("/notes");
+      navigate("/Recados");
     }
-  }, [userlogged]);
+  }, [userlogged]); */
 
   function handleSubmit(evento: FormEvent) {
     evento.preventDefault();
 
-    if (mode === "login") {
+    if (mode === "Login") {
       const user = {
         email: email,
         password: password,
@@ -106,108 +106,86 @@ const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
       dispatch(userCreateAsyncThunk({ email, password, repassword }));
 
       setTimeout(() => {
-        navigate("/login");
+        navigate("/");
       }, 1000);
     }
   }
 
   return (
     <>
-      <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-2" onSubmit={(ev) => handleSubmit(ev)}>
+      <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form className="space-y-6" action="#" method="POST" onSubmit={(ev) => handleSubmit(ev)}>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+            <label htmlFor="email" className="block text-sm leading-6 text-gray-900 font-mplus">
               Email
             </label>
-
-            <div>
+            <div className="mt-2">
               <input
-                value={email}
-                onChange={(ev) => setEmail(ev.target.value)}
                 id="email"
                 name="email"
                 type="email"
                 autoComplete="email"
                 required
-                className="block rounded-[22px] w-[100%] h-[10%] border-0 p-[4%] bg-orange-50 text-gray-900 shadow-sm focus:outline-none focus:bg-orange-100 "
+                className="block w-full rounded-md border-0 py-1.5 text-pink-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-400 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6 focus: outline-none p-2"
               />
             </div>
           </div>
 
           <div>
-            <div className="flex items-center justify-between mt-[5%]">
-              <label htmlFor="password" className="block text-sm font-medium leading-6 text-white">
+            <div className="flex items-center justify-between">
+              <label
+                htmlFor="password"
+                className="block text-sm leading-6 text-gray-900 font-mplus"
+              >
                 Senha
               </label>
             </div>
-
-            <div>
+            <div className="mt-2">
               <input
-                value={password}
-                onChange={(ev) => setPassword(ev.target.value)}
                 id="password"
                 name="password"
                 type="password"
                 autoComplete="current-password"
                 required
-                className="block rounded-[22px] w-[100%] h-[10%] border-0 p-[4%] bg-orange-50 text-gray-900 shadow-sm focus:outline-none focus:bg-orange-100"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-400 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6 focus:border-0 focus: outline-none p-2"
               />
             </div>
-
-            {mode === "signUp" && (
-              <>
-                <div className="flex items-center justify-between mt-[5%]">
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium leading-6 text-white"
-                  >
-                    Repetir a senha
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    value={repassword}
-                    onChange={(ev) => setRepassword(ev.target.value)}
-                    id="repassword"
-                    name="repassword"
-                    type="password"
-                    required
-                    className="block rounded-[22px] w-[100%] h-[10%] border-0 p-[4%] bg-orange-50 text-gray-900 shadow-sm focus:outline-none focus:bg-orange-100"
-                  />
-                </div>
-              </>
-            )}
+            <div className="flex items-center justify-between mt-6">
+              <label
+                htmlFor="password"
+                className="block text-sm leading-6 text-gray-900 font-mplus"
+              >
+                Repetir a senha
+              </label>
+            </div>
+            <div className="mt-2">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-400 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6 focus:border-0 focus: outline-none p-2"
+              />
+            </div>
           </div>
 
-          <div className="w-full pt-5 flex justify-center">
+          <div className="w-full flex justify-center pt-2">
             <button
               type="submit"
-              disabled={disabled}
-              className="flex w-[85%] h-14 justify-center items-center rounded-[22px] bg-indigo-400 px-3 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="text-white w-80 h-10 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 font-mplus"
             >
-              {textButton}
+              Cadastrar
             </button>
           </div>
-
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm flex justify-center">
-            {mode === "login" ? (
-              <a
-                href="/signup"
-                className="mt-2 text-center text-2xl leading-9 tracking-tight text-white text-[20px]"
-              >
-                Não tem uma conta? Cadastre-se!
-              </a>
-            ) : (
-              <a
-                href="/"
-                className="mt-2 text-center text-2xl leading-9 tracking-tight text-white text-[20px]"
-              >
-                Já tem uma conta? Entre agora mesmo!
-              </a>
-            )}
-          </div>
         </form>
+
+        <p className="mt-7 text-center text-sm text-gray-500 font-mplus">
+          Ja tem uma conta?{" "}
+          <a href="/" className="font-mplus leading-6 text-pink-500 hover:text-[#ff9db0]">
+            Faça o login!
+          </a>
+        </p>
       </div>
     </>
   );

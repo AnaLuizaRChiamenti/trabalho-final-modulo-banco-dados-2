@@ -1,11 +1,16 @@
 import React from "react";
 import AppRoutes from "./routes/AppRoutes";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./store/store";
 
 function App() {
   return (
-    <div className="App">
-      <AppRoutes></AppRoutes>
-    </div>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <AppRoutes />
+      </PersistGate>
+    </Provider>
   );
 }
 

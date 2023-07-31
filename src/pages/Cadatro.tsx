@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "react-router-dom";
+import FormComp from "../components/Form";
 
 const Cadastro: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ const Cadastro: React.FC = () => {
               <h2 className="mt-5 text-center text-3xl leading-9 tracking-tight text-gray-900 font-mplus">
                 Faça seu cadastro
               </h2>
-              <Form />
+              <FormComp textButton="Cadastrar" mode="Cadastro" />
             </div>
           </div>
         </div>

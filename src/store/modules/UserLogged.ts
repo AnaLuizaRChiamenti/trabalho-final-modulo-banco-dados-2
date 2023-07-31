@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../services/api";
-import UserType from "../../types/userType";
+import UserType from "../../types/UserType";
 
 interface userstate {
   userLogged: UserType;
