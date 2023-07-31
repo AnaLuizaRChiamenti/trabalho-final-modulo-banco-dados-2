@@ -7,69 +7,6 @@ interface FormProps {
 }
 
 const Form: React.FC<FormProps> = ({ mode }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [repassword, setRepassword] = useState("");
-  const [errorEmail, setErrorEmail] = useState(false);
-  const [errorPassword, setErrorPassword] = useState(false);
-  const [errorRepassword, setErrorRepassword] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  const userlogged = useAppSelector((state) => state.userLogged.userLogged);
-  const listUsers = useAppSelector((state) => state.users.users);
-
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  function handleSubmit(evento: React.FormEvent<HTMLFormElement>) {
-    evento.preventDefault();
-
-    if (mode === "login") {
-      const user = {
-        email: email,
-        password: password,
-      };
-
-      const userExist = listUsers.find(
-        (value) => value.email === user.email && value.password === user.password,
-      );
-      if (!userExist) {
-        setAlertError(true);
-        setTimeout(() => {
-          setAlertError(false);
-        }, 5000);
-        return;
-      }
-
-      dispatch(loginAsyncThunk(user));
-      dispatch(getNotesAsyncThunk(email));
-    } else {
-      const newUser = {
-        email,
-        password,
-        repassword,
-      };
-
-      const retorno = listUsers.some((value) => value.email === newUser.email);
-      if (retorno) {
-        setAlertErrorExist(true);
-        setTimeout(() => {
-          setAlertErrorExist(false);
-        }, 5000);
-        return;
-      }
-
-      setAlertSucess(true);
-      setTimeout(() => {
-        setAlertSucess(false);
-      }, 5000);
-
-      dispatch(userCreateAsyncThunk({ email, password, repassword }));
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 1000);
-    }
-  }
-
   return (
     <React.Fragment>
       <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
