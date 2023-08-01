@@ -1,6 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import UsersSlice from "./UsersSlice";
-import userLoggedReducer from "./UserLogged";
+import { userLoggedReducer } from "./UserLogged";
 
 export default combineReducers({
   users: UsersSlice,

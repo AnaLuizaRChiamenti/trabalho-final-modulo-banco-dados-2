@@ -1,13 +1,31 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import api from "../../services/api";
 import UserType from "../../types/UserType";
 
-interface userstate {
-  userLogged: UserType;
-}
 const initialState: userstate = {
   userLogged: { email: "", password: "", notes: [] },
 };
+interface userstate {
+  userLogged: UserType;
+}
+
+interface taskCreate {
+  title: string;
+  description: string;
+  email: string;
+}
+
+interface defaultTask {
+  email: string;
+  id: string;
+}
+
+interface taskUpdate {
+  id: string;
+  email: string;
+  title: string;
+  description: string;
+}
 
 interface userLogin {
   email: string;
@@ -20,24 +38,6 @@ interface userCreate {
   repassword: string;
 }
 
-interface noteCreate {
-  title: string;
-  description: string;
-  email: string;
-}
-
-interface noteDelete {
-  email: string;
-  id: string;
-}
-
-interface noteUpdate {
-  id: string;
-  email: string;
-  title: string;
-  description: string;
-}
-
 export const userCreateAsyncThunk = createAsyncThunk(
   "userCreate",
   async ({ email, password, repassword }: userCreate) => {
@@ -46,19 +46,20 @@ export const userCreateAsyncThunk = createAsyncThunk(
       password,
       repassword,
     });
-    console.log(response);
-
     return response.data;
   },
 );
 
-export const loginAsyncThunk = createAsyncThunk("login", async ({ email, password }: userLogin) => {
-  const response = await api.get(`users/login/${email}/${password}`, {});
-  console.log(response);
-  return response.data;
-});
+export const userLoginAsyncThunk = createAsyncThunk(
+  "login",
+  async ({ email, password }: userLogin) => {
+    const response = await api.get(`users/login/${email}/${password}`, {});
+    console.log(response);
+    return response.data;
+  },
+);
 
-export const noteCreateAsyncThunk = createAsyncThunk("note", async (newTask: noteCreate) => {
+export const taskCreateAsyncThunk = createAsyncThunk("task", async (newTask: taskCreate) => {
   const email = newTask.email;
   console.log(newTask);
 
@@ -67,6 +68,7 @@ export const noteCreateAsyncThunk = createAsyncThunk("note", async (newTask: not
       title: newTask.title,
       description: newTask.description,
     });
+    console.log(response);
 
     return response.data;
   } catch (error) {
@@ -75,24 +77,26 @@ export const noteCreateAsyncThunk = createAsyncThunk("note", async (newTask: not
   }
 });
 
-export const getNotesAsyncThunk = createAsyncThunk("getTask", async (email: string) => {
+export const getTaskAsyncThunk = createAsyncThunk("getTask", async (email: string) => {
   console.log(email);
   const response = await api.get(`/tasks/${email}`);
   return response.data;
 });
 
-export const noteDeleteAsyncThunk = createAsyncThunk(
+export const taskDeleteAsyncThunk = createAsyncThunk(
   "taskDelete",
-  async ({ email, id }: noteDelete) => {
+  async ({ email, id }: defaultTask) => {
     console.log(id);
     const response = await api.delete(`/tasks/${email}/${id}`);
+    console.log(response.data);
+
     return response.data;
   },
 );
 
-export const noteUpdateAsyncThunk = createAsyncThunk(
+export const taskUpdateAsyncThunk = createAsyncThunk(
   "taskUpdate",
-  async ({ email, id, description, title }: noteUpdate) => {
+  async ({ email, id, description, title }: taskUpdate) => {
     console.log(id);
     const response = await api.put(`/tasks/${email}/${id}`, {
       title,
@@ -102,28 +106,27 @@ export const noteUpdateAsyncThunk = createAsyncThunk(
   },
 );
 
-export const noteArchiveAsyncThunk = createAsyncThunk(
+export const taskArchivedAsyncThunk = createAsyncThunk(
   "taskArchive",
-  async ({ email, id }: noteDelete) => {
+  async ({ email, id }: defaultTask) => {
     console.log(id);
     const response = await api.put(`/tasks/${email}/${id}/archived`);
-    console.log(response.data);
     return response.data;
   },
 );
 
-export const userLoggedSlice = createSlice({
+const userLogged = createSlice({
   name: "userLogged",
   initialState,
   extraReducers(builder) {
-    builder.addCase(loginAsyncThunk.fulfilled, (state, action) => {
+    builder.addCase(userLoginAsyncThunk.fulfilled, (state, action) => {
       state.userLogged.email = action.payload.email;
       state.userLogged.password = action.payload.password;
     });
-    builder.addCase(noteCreateAsyncThunk.fulfilled, (state, action) => {
+    builder.addCase(taskCreateAsyncThunk.fulfilled, (state, action) => {
       state.userLogged.notes.push(action.payload);
     });
-    builder.addCase(getNotesAsyncThunk.fulfilled, (state, action) => {
+    builder.addCase(getTaskAsyncThunk.fulfilled, (state, action) => {
       state.userLogged.notes = action.payload;
     });
   },
@@ -133,7 +136,5 @@ export const userLoggedSlice = createSlice({
     },
   },
 });
-
-export default userLoggedSlice.reducer;
-
-export const { logout } = userLoggedSlice.actions;
+export const { logout } = userLogged.actions;
+export const userLoggedReducer = userLogged.reducer;

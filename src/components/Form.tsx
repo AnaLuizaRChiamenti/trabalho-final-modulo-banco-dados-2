@@ -3,10 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../store/hooks";
 import { useAppDispatch } from "../store/hooks";
 import {
-  getNotesAsyncThunk,
-  loginAsyncThunk,
+  getTaskAsyncThunk,
+  userLoginAsyncThunk,
   userCreateAsyncThunk,
 } from "../store/modules/UserLogged";
+import { getUsersAsyncThunk } from "../store/modules/UsersSlice";
 
 interface FormCompProps {
   textButton: "Logar" | "Cadastrar";
@@ -17,24 +18,23 @@ const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRepassword] = useState("");
+  const [disabled, setDisabled] = useState(false);
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
   const [errorRepassword, setErrorRepassword] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  const userlogged = useAppSelector((state) => state.userLogged.userLogged);
+  const [successAlertVisible, setSuccessAlertVisible] = useState(false);
+  const [successAlertVisibleEmail, setSuccessAlertVisibleEmail] = useState(false);
+  const [alertError, setAlertError] = useState(false);
   const listUsers = useAppSelector((state) => state.users.users);
+  const userLogged = useAppSelector((state) => state.userLogged.userLogged);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [alertSucess, setAlertSucess] = useState(false);
-  const [alertError, setAlertError] = useState(false);
-  const [alertErrorExist, setAlertErrorExist] = useState(false);
-
   useEffect(() => {
     if (mode === "Cadastro") {
       const emailValid =
-        email.includes(".com") || (email.includes(".com.br") && email.includes("@"));
+        (email.endsWith(".com") || email.endsWith(".com.br")) && email.includes("@");
 
       if (email.length > 0) {
         setErrorEmail(!emailValid);
@@ -46,6 +46,7 @@ const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
       }
 
       const repasswordValid = password === repassword;
+
       if (repassword.length > 0) {
         setErrorRepassword(!repasswordValid);
       }
@@ -54,60 +55,51 @@ const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
     }
   }, [email, password, repassword, mode]);
 
-  /*   useEffect(() => {
-    if (userlogged.email) {
+  useEffect(() => {
+    if (userLogged.email) {
       navigate("/Recados");
     }
-  }, [userlogged]); */
+  }, [userLogged]);
 
-  function handleSubmit(evento: FormEvent) {
+  function handleSubmit(evento: React.FormEvent<HTMLFormElement>) {
     evento.preventDefault();
+    dispatch(getUsersAsyncThunk());
+    const newUser = {
+      email: email,
+      password: password,
+    };
 
     if (mode === "Login") {
-      const user = {
-        email: email,
-        password: password,
-      };
-
       const userExist = listUsers.find(
-        (value) => value.email === user.email && value.password === user.password,
+        (value) => value.email === newUser.email && value.password === newUser.password,
       );
       if (!userExist) {
         setAlertError(true);
         setTimeout(() => {
           setAlertError(false);
         }, 5000);
+        navigate("/Recados");
+        dispatch(userLoginAsyncThunk(newUser));
         return;
       }
 
-      dispatch(loginAsyncThunk(user));
-      dispatch(getNotesAsyncThunk(email));
+      dispatch(getTaskAsyncThunk(email));
     } else {
-      const newUser = {
-        email,
-        password,
-        repassword,
-      };
-
       const retorno = listUsers.some((value) => value.email === newUser.email);
       if (retorno) {
-        setAlertErrorExist(true);
+        setSuccessAlertVisibleEmail(true);
         setTimeout(() => {
-          setAlertErrorExist(false);
-        }, 5000);
+          setSuccessAlertVisibleEmail(false);
+        }, 3000);
         return;
       }
 
-      setAlertSucess(true);
+      setSuccessAlertVisible(true);
       setTimeout(() => {
-        setAlertSucess(false);
-      }, 5000);
-
+        setSuccessAlertVisible(false);
+        navigate("/Cadastro");
+      }, 3000);
       dispatch(userCreateAsyncThunk({ email, password, repassword }));
-
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
     }
   }
 
@@ -166,8 +158,8 @@ const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
                 </div>
                 <div className="mt-2">
                   <input
-                    id="password"
-                    name="password"
+                    id="repassword"
+                    name="repassword"
                     type="password"
                     onChange={(ev) => setRepassword(ev.target.value)}
                     value={repassword}
