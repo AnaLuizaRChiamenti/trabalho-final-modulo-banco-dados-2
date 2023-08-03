@@ -10,7 +10,12 @@ interface ModalEditarProps {
   actionCancel: () => void;
   task: NoteType;
 }
-const ModalAdd: React.FC<ModalEditarProps> = ({ openModal, actionCancel, actionConfirm, task }) => {
+const ModalUpdate: React.FC<ModalEditarProps> = ({
+  openModal,
+  actionCancel,
+  actionConfirm,
+  task,
+}) => {
   const dispatch = useAppDispatch();
   const [editedTask, setEditedTask] = React.useState(task);
   const email = useAppSelector((state) => state.userLogged.userLogged.email);
@@ -102,4 +107,4 @@ const ModalAdd: React.FC<ModalEditarProps> = ({ openModal, actionCancel, actionC
   );
 };
 
-export default ModalAdd;
+export default ModalUpdate;

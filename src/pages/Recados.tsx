@@ -12,7 +12,7 @@ const Recados: React.FC = () => {
   const userLogged = useAppSelector((state) => state.userLogged.userLogged);
   const listTaks = useAppSelector((state) => state.userLogged.userLogged.notes);
   const [openModalEdit, setOpenModalEdit] = useState(false);
-  const [editedTaks, setEditedTaks] = useState({} as NoteType);
+  const [editedTasks, setEditedTasks] = useState({} as NoteType);
 
   const [selectedNote, setSelectedNote] = useState({} as NoteType);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
@@ -76,7 +76,7 @@ const Recados: React.FC = () => {
   };
 
   const handleEdit = (item: NoteType) => {
-    setEditedTaks(item);
+    setEditedTasks(item);
     setOpenModalEdit(true);
   };
 
@@ -105,7 +105,7 @@ const Recados: React.FC = () => {
               openModal={openModalEdit}
               actionConfirm={addNotesEdit}
               actionCancel={handleCloseEdit}
-              task={editedTaks}
+              task={editedTasks}
             />
           )}
           <div className="w-[20%] h-[90%] rounded-3xl fixed flex flex-col bg-[#fca6a1] shadow-md max-[376px]:flex-row  ">
@@ -261,7 +261,7 @@ const Recados: React.FC = () => {
           </div>
         </section>
         <section className="w-[75%] h-[100%] flex flex-col justify-between items-center">
-          <div className="w-[60%] h-[15%] flex pt-10 gap-5">
+          <div className="w-[60%] h-[13%] mt-5 flex pt-10 gap-5">
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -322,7 +322,7 @@ const Recados: React.FC = () => {
             ></input>
           </div>
           <div className="w-[90%]  mb-12 flex flex-wrap rounded-2xl pl-10 ">
-            <div className="w-[100%] h-[75%] mt-24 flex flex-wrap justify-center">
+            <div className="w-[100%] h-[80%] mt-5 flex flex-wrap justify-center">
               {showArchived
                 ? archivedTasks
                     .filter((note) => {
