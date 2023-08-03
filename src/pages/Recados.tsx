@@ -44,11 +44,11 @@ const Recados: React.FC = () => {
 
   return (
     <React.Fragment>
-      <main className="w-[100vw] h-[100vh] bg-[url('../public/assets/images/fundo.png')] flex">
+      <main className="w-[100vw] h-[100vh] flex">
         <section className="h-[100%] w-[25%] flex items-center justify-center max-[376px]:h-[15%] max-[415px]:w-[100%] // max-[415px]:h-[10%]">
           <ModalAdd openModal={openAdd} actionConfirm={addNotes} actionCancel={handleClose} />
 
-          <div className="w-[80%] h-[90%] rounded-3xl flex flex-col bg-[#fca6a1] shadow-md max-[376px]:flex-row  ">
+          <div className="w-[20%] h-[90%] rounded-3xl fixed flex flex-col bg-[#fca6a1] shadow-md max-[376px]:flex-row  ">
             <div className="w-[100%] h-[100%] flex flex-col justify-center items-center max-[376px]:flex-row max-[376px]:w-0 max-[376px]:text-transparent ">
               <img src="./assets/images/iconePessoa.png" alt="" className="h-30" />
               Email
@@ -199,7 +199,6 @@ const Recados: React.FC = () => {
             </div>
           </div>
         </section>
-        {/* ////////////////////////////////////////////////////// */}
         <section className="w-[75%] h-[100%] flex flex-col justify-between items-center">
           <div className="w-[60%] h-[15%] flex pt-20 gap-5">
             <button>
@@ -257,9 +256,11 @@ const Recados: React.FC = () => {
               id="search"
               name="search"
               className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-400 focus:ring-2 focus:ring-inset focus:ring-pink-600  sm:leading-6 focus: outline-none p-2 bg-[#FCA5A1] indent-3 text-lg "
-            />
+              value={filterTask}
+              onChange={(e) => setFilterTask(e.target.value)}
+            ></input>
           </div>
-          <div className="w-[90%] h-[70%] mb-12 bg-[#fca6a18a] flex flex-wrap rounded-2xl pl-10 pt-10 shadow-md">
+          <div className="w-[90%] h-[auto] mb-12 mt-12 bg-[#fca6a18a] flex flex-wrap rounded-2xl pl-10 pt-10 shadow-md">
             <div className="w-[100%] h-[75%] mt-24 flex flex-wrap justify-center">
               {showArchived
                 ? archivedTasks
