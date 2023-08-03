@@ -65,6 +65,7 @@ export const taskCreateAsyncThunk = createAsyncThunk("task", async (newTask: tas
 
   try {
     const response = await api.post(`/tasks/${email}`, {
+      emailUser: newTask.email,
       title: newTask.title,
       description: newTask.description,
     });

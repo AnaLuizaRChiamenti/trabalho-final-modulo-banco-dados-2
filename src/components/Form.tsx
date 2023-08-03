@@ -73,23 +73,27 @@ const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
       const userExist = listUsers.find(
         (value) => value.email === newUser.email && value.password === newUser.password,
       );
+
       if (!userExist) {
         setAlertError(true);
         setTimeout(() => {
           setAlertError(false);
         }, 5000);
-        navigate("/Recados");
-        dispatch(userLoginAsyncThunk(newUser));
         return;
       }
-
       dispatch(getTaskAsyncThunk(email));
+
+      setTimeout(() => {
+        console.log("gay");
+        dispatch(userLoginAsyncThunk(newUser));
+        navigate("/Recados");
+      }, 1000);
     } else {
       const retorno = listUsers.some((value) => value.email === newUser.email);
       if (retorno) {
-        setSuccessAlertVisibleEmail(true);
+        setSuccessAlertVisible(true);
         setTimeout(() => {
-          setSuccessAlertVisibleEmail(false);
+          setSuccessAlertVisible(false);
         }, 3000);
         return;
       }
@@ -97,7 +101,7 @@ const FormComp: React.FC<FormCompProps> = ({ textButton, mode }) => {
       setSuccessAlertVisible(true);
       setTimeout(() => {
         setSuccessAlertVisible(false);
-        navigate("/Cadastro");
+        navigate("/");
       }, 3000);
       dispatch(userCreateAsyncThunk({ email, password, repassword }));
     }
